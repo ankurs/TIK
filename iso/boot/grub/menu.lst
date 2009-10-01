@@ -1,0 +1,6 @@
+default 0
+timeout 5
+
+title= TIK Is Kernel
+root (cd)
+kernel (cd)/boot/kernel
