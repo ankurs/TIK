@@ -11,7 +11,7 @@ ASFLAGS=-felf
 all: $(SOURCES) link
 
 clean:
-	-rm *.o kernel
+	-rm -f *.o kernel
 
 link:
 	ld $(LDFLAGS) -o kernel $(SOURCES)

@@ -77,6 +77,14 @@ void put(char c)
     // the char to be displayed
     
     // check for backspace
+    
+    // Convert number into Standard form
+    int num = (int)c;
+    if (num>=0 && num<=9)
+    {
+        num+=48;
+        c = (char)num;
+    }
     if ( c == 0x80 )
     {
         // if we are not at first position in line move cursor 1 space back
@@ -185,3 +193,5 @@ void putsxy(char *c,u16int x ,u16int y)
     pos_y = temp2;
     set_cursor();
 }
+
+
