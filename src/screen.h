@@ -14,9 +14,14 @@ void clear();
 // Output a null-terminated ASCII string to the screen.
 void puts(char *c);
 
-// Goto (x,y)
-void gotoxy(int x ,int y);
-
 // Set text color
 void set_color(u8int color_info);
+
+// Goto (x,y)
+void gotoxy(u16int x ,u16int y);
+
+// Print text at (x,y)
+void putsxy(char *c,u16int x ,u16int y);
+
 #endif // SCREEN_H
+

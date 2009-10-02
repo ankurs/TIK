@@ -7,6 +7,8 @@ u16int *screen_buf = (u16int *)0xB8000;
 // store cursor's x and y position
 u8int pos_x = 0;
 u8int pos_y = 0;
+u8int temp1 = 0;
+u8int temp2 = 0;
 
 // storing the default color attribute
 // default color attribute is white on black
@@ -63,14 +65,8 @@ void scroll()
     }
 }
 
-// print a char out to screen
-void gotoxy(int x ,int y)
-{
-    pos_x= x;
-    pos_y= y;
-    set_cursor();
 
-}
+// Print a char out to screen
 void put(char c)
 {
     // here we need to handel all cases regarding the char being
@@ -165,4 +161,27 @@ void puts(char * c)
     {
         put(c[i++]);
     }
+}
+
+// Send cursor to specified location
+void gotoxy(u16int x ,u16int y)
+{
+    pos_x= x;
+    pos_y= y;
+    set_cursor();
+
+}
+
+// Print String at specified location
+void putsxy(char *c,u16int x ,u16int y)
+{
+    temp1 = pos_x;
+    pos_x = x;
+    temp2 = pos_y;
+    pos_y = y;
+    set_cursor();
+    puts(c);
+    pos_x = temp1;
+    pos_y = temp2;
+    set_cursor();
 }

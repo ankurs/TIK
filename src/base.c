@@ -24,5 +24,10 @@ u16int inw(u16int port)
    return ret;
 }
 
+// Cause Delay of n millisec
 
+void delay(u16int n)
+{
+ 
+}
  
