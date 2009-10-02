@@ -64,6 +64,13 @@ void scroll()
 }
 
 // print a char out to screen
+void gotoxy(int x ,int y)
+{
+    pos_x= x;
+    pos_y= y;
+    set_cursor();
+
+}
 void put(char c)
 {
     // here we need to handel all cases regarding the char being
