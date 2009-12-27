@@ -153,9 +153,28 @@ void clear()
 void puts(char * c)
 {
     // moves through c one by one until NULL ( \0 ) and keeps on printing
+    // char out to screen
     int i=0;
     while (c[i])
     {
         put(c[i++]);
     }
+}
+
+// set the default color attribute
+void set_color(u8int color_f, u8int color_b)
+{
+    // set the color attribute by taking 2 saperate values for
+    // forground and background
+    // color attribute is 8 bit with higher 4 bits representing
+    // background color and lower 4 bits color of char
+    color_attr = color_f | ( color_b << 4 );
+}
+
+// restors default color attribute
+void restore_color()
+{
+    // resets the to default of white text on black background
+    // call set color
+    set_color(15,0);
 }

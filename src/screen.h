@@ -15,5 +15,5 @@ void clear();
 void puts(char *c);
 
 // Set text color
-void set_color(u8int color_info);
+void set_color(u8int color_f, u8int color_b);
 #endif // SCREEN_H
