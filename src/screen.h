@@ -15,13 +15,13 @@ void clear();
 void puts(char *c);
 
 // Set text color
-void set_color(u8int color_f, u8int color_b);
+void set_color(uint8_t color_f, uint8_t color_b);
 
 // Goto (x,y)
-void gotoxy(u16int x ,u16int y);
+void gotoxy(uint16_t x ,uint16_t y);
 
 // Print text at (x,y)
-void putsxy(char *c,u16int x ,u16int y);
+void putsxy(char *c,uint16_t x ,uint16_t y);
 
 // Format a string and print it on the screen
 void printf (const char *format, ...);

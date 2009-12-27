@@ -3,21 +3,21 @@
 #include "base.h"
 
 
-void outb(u16int port, u8int value)
+void outb(uint16_t port, uint8_t value)
 {
     asm volatile ("outb %1, %0" : : "dN" (port), "a" (value));
 }
 
-u8int inb(u16int port)
+uint8_t inb(uint16_t port)
 {
-   u8int ret;
+   uint8_t ret;
    asm volatile("inb %1, %0" : "=a" (ret) : "dN" (port));
    return ret;
 }
 
-u16int inw(u16int port)
+uint16_t inw(uint16_t port)
 {
-   u16int ret;
+   uint16_t ret;
    asm volatile ("inw %1, %0" : "=a" (ret) : "dN" (port));
    return ret;
 }

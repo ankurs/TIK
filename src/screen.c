@@ -3,19 +3,19 @@
 
 // make a pointer to the screen buffer
 // video buffer starts at 0xB8000 
-u16int *screen_buf = (u16int *)0xB8000;
+uint16_t *screen_buf = (uint16_t *)0xB8000;
 
 // store cursor's x and y position
-u8int pos_x = 0;
-u8int pos_y = 0;
-u8int temp1 = 0;
-u8int temp2 = 0;
+uint8_t pos_x = 0;
+uint8_t pos_y = 0;
+uint8_t temp1 = 0;
+uint8_t temp2 = 0;
 
 // storing the default color attribute
 // default color attribute is white on black
 // color attribute is 8 bit with higher 4 bits representing
 // background color and lower 4 bits color of char
-u8int color_attr = 0x0F;
+uint8_t color_attr = 0x0F;
 
 // send cursor's location to VGA board
 void set_cursor()
@@ -28,7 +28,7 @@ void set_cursor()
     //  |
     //  |
     // \/ y direction 
-    u16int location = pos_y * 80 + pos_x;
+    uint16_t location = pos_y * 80 + pos_x;
     // we send high and low cursor byte at 0x3D4, but
     // first we need to tell VGA board we are sending
     // it the high or low byte
@@ -46,7 +46,7 @@ void scroll()
     // color attributes and lower 8 bits representing ascii value of
     // the char to be displayed
     // we generate value for blank 
-    u16int space = 0x20 | (color_attr << 8 ); 
+    uint16_t space = 0x20 | (color_attr << 8 ); 
     // check if we are at the last line ( 25 ), otherwise no need to scroll
     if (pos_y >=25)
     {
@@ -100,7 +100,7 @@ void put(char c)
     {
         // increase cursor's position in multiples of 8
         // we take tab to be of 8 spaces
-        u8int val = pos_x / 8; // get current int position
+        uint8_t val = pos_x / 8; // get current int position
         pos_x = pos_x * 8 + 8; // increase by 8
     }
     // else if char is \r
@@ -122,7 +122,7 @@ void put(char c)
         // all printable char are present above space/blank 
         // here we set the give car at current position and move
         // one place ahead
-        u16int *position;
+        uint16_t *position;
         position = screen_buf + ( pos_y * 80 + pos_x ); // get screen position
         *position = c | ( color_attr << 8 ); // store char at position
         pos_x++; // move one place
@@ -149,7 +149,7 @@ void clear()
     // cursor position, clearing the screen
     int i;
     // get value for space, with default color attributes
-    u16int space = 0x20 | color_attr<<8;
+    uint16_t space = 0x20 | color_attr<<8;
     // fill whole buffer with spaces
     for (i=0;i<25*80;i++)
     {
@@ -174,7 +174,7 @@ void puts(char * c)
 }
 
 // set the default color attribute
-void set_color(u8int color_f, u8int color_b)
+void set_color(uint8_t color_f, uint8_t color_b)
 {
     // set the color attribute by taking 2 saperate values for
     // forground and background
@@ -192,7 +192,7 @@ void restore_color()
 }
 
 // Send cursor to specified location
-void gotoxy(u16int x ,u16int y)
+void gotoxy(uint16_t x ,uint16_t y)
 {
     pos_x= x;
     pos_y= y;
@@ -201,7 +201,7 @@ void gotoxy(u16int x ,u16int y)
 }
 
 // Print String at specified location
-void putsxy(char *c,u16int x ,u16int y)
+void putsxy(char *c,uint16_t x ,uint16_t y)
 {
     temp1 = pos_x;
     pos_x = x;
