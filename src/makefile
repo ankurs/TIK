@@ -2,7 +2,7 @@
 # The only one that needs changing is the assembler 
 # rule, as we use nasm instead of GNU as.
 
-SOURCES=boot.o main.o base.o screen.o string.o
+SOURCES=boot.o main.o base.o screen.o string.o mem.o stdlib.o
 
 CFLAGS=-nostdlib -nostdinc -fno-builtin -fno-stack-protector
 LDFLAGS=-Tlink.ld

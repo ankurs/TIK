@@ -23,5 +23,8 @@ void gotoxy(u16int x ,u16int y);
 // Print text at (x,y)
 void putsxy(char *c,u16int x ,u16int y);
 
+// Format a string and print it on the screen
+void printf (const char *format, ...);
+
 #endif // SCREEN_H
 

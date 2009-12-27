@@ -1,4 +1,5 @@
 #include "screen.h"
+#include "stdlib.h"
 
 // make a pointer to the screen buffer
 // video buffer starts at 0xB8000 
@@ -193,5 +194,50 @@ void putsxy(char *c,u16int x ,u16int y)
     pos_y = temp2;
     set_cursor();
 }
+
+void printf (const char *format, ...)
+{
+  char **arg = (char **) &format;
+  int c;
+  char buf[20];
+  
+  arg++;
+  
+  while ((c = *format++) != 0)
+    {
+      if (c != '%')
+        put(c);
+      else
+        {
+          char *p;          
+          c = *format++;
+          switch (c)
+            {
+            case 'd':
+            case 'u':
+            case 'x':
+              itoa (buf, c, *((int *) arg++));
+              p = buf;
+              goto string;
+              break;
+
+            case 's':
+              p = *arg++;
+              if (p == NULL)
+                p = "(null)";
+
+            string:
+              while (*p)
+                put(*p++);
+              break;
+
+            default:
+              put(*((int *) arg++));
+              break;
+            }
+        }
+    }
+}
+
 
 
