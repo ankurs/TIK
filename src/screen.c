@@ -1,4 +1,5 @@
 #include "screen.h"
+#include "stdlib.h"
 
 // make a pointer to the screen buffer
 // video buffer starts at 0xB8000 
@@ -7,6 +8,8 @@ u16int *screen_buf = (u16int *)0xB8000;
 // store cursor's x and y position
 u8int pos_x = 0;
 u8int pos_y = 0;
+u8int temp1 = 0;
+u8int temp2 = 0;
 
 // storing the default color attribute
 // default color attribute is white on black
@@ -63,7 +66,8 @@ void scroll()
     }
 }
 
-// print a char out to screen
+
+// Print a char out to screen
 void put(char c)
 {
     // here we need to handel all cases regarding the char being
@@ -74,6 +78,14 @@ void put(char c)
     // the char to be displayed
     
     // check for backspace
+    
+    // Convert number into Standard form
+    int num = (int)c;
+    if (num>=0 && num<=9)
+    {
+        num+=48;
+        c = (char)num;
+    }
     if ( c == 0x80 )
     {
         // if we are not at first position in line move cursor 1 space back
@@ -178,3 +190,71 @@ void restore_color()
     // call set color
     set_color(15,0);
 }
+
+// Send cursor to specified location
+void gotoxy(u16int x ,u16int y)
+{
+    pos_x= x;
+    pos_y= y;
+    set_cursor();
+
+}
+
+// Print String at specified location
+void putsxy(char *c,u16int x ,u16int y)
+{
+    temp1 = pos_x;
+    pos_x = x;
+    temp2 = pos_y;
+    pos_y = y;
+    set_cursor();
+    puts(c);
+    pos_x = temp1;
+    pos_y = temp2;
+    set_cursor();
+}
+
+void printf (const char *format, ...)
+{
+  char **arg = (char **) &format;
+  int c;
+  char buf[20];
+  
+  arg++;
+  
+  while ((c = *format++) != 0)
+    {
+      if (c != '%')
+        put(c);
+      else
+        {
+          char *p;          
+          c = *format++;
+          switch (c)
+            {
+            case 'd':
+            case 'u':
+            case 'x':
+              itoa (buf, c, *((int *) arg++));
+              p = buf;
+              goto string;
+              break;
+
+            case 's':
+              p = *arg++;
+              if (p == NULL)
+                p = "(null)";
+
+            string:
+              while (*p)
+                put(*p++);
+              break;
+
+            default:
+              put(*((int *) arg++));
+              break;
+            }
+        }
+    }
+}
+

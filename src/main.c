@@ -1,8 +1,10 @@
 #include "screen.h"
+#include "string.h"
 
 int main()
 {
     clear();
-    puts("Welcome To TIK");
+    char txt[6]="World";
+    printf("Hello %s",txt);
     return 0;
 }
