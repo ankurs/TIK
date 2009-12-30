@@ -23,4 +23,7 @@ uint8_t inb(uint16_t port);
 // Read (16bit) from the specified port
 uint16_t inw(uint16_t port);
 
+// Simple function to set the value at a memory location.
+unsigned char* memset (unsigned char *dest, unsigned char val,int count);
+
 #endif // BASE_H
